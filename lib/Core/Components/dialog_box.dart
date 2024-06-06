@@ -56,7 +56,7 @@ class DialogBox{
                     onTap();
                     Navigator.pop(context);
                   },
-                  child: const Text('Edit'),
+                  child:  Text(text),
                 ),
               ],
             ),

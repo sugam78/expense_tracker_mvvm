@@ -3,7 +3,6 @@ import 'package:expense_tracker_mvvm/Core/Components/reusuable_button.dart';
 import 'package:expense_tracker_mvvm/Repository/Home/home_repository.dart';
 import 'package:expense_tracker_mvvm/ViewModel/Controller/Home/home_controller.dart';
 import 'package:flutter/material.dart';
-
 import '../../Core/Constants/app_constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -116,6 +115,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onTap: () {
                                         dialogBox.dialogShow(homeController.incomeTitleController.value, homeController.incomeController.value, '', '', 'Add', ()async{
                                           await homeRepo.addIncome(homeController.incomeTitleController.value.text, homeController.incomeController.value.text);
+                                          setState(() {
+
+                                          });
                                         }, context);
                                       },
                                       height: mq.height * 0.04,

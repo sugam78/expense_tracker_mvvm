@@ -9,4 +9,10 @@ class HomeController extends GetxController{
   final incomeController = TextEditingController().obs;
   final incomeTitleController = TextEditingController().obs;
   final editExpenseController = TextEditingController().obs;
+
+  var expenses = <Map<String, dynamic>>[].obs;
+  var income = <Map<String, dynamic>>[].obs;
+  var totalExpenditure = 0.0.obs;
+  var totalIncome = 0.0.obs;
+
 }
