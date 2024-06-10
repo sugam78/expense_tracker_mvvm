@@ -17,15 +17,23 @@ class SignInScreen extends StatefulWidget {
   @override
   State<SignInScreen> createState() => _SignInScreenState();
 }
-
+final signinScreenController = Get.put(SigninScreenController());
 class _SignInScreenState extends State<SignInScreen> {
   @override
+  void initState() {
+    signinScreenController.emailController.value.clear();
+    signinScreenController.passwordController.value.clear();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
-    SigninScreenController signinScreenController = SigninScreenController();
     final signinRepo = SigninRepository();
     final navigation = Navigation();
     final formKey = GlobalKey<FormState>();
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Sign Up'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(
@@ -39,14 +47,16 @@ class _SignInScreenState extends State<SignInScreen> {
                 keyboardType: TextInputType.emailAddress,
                 decoration: InputDecoration(
                     hintText: 'Email',
+                    prefixIcon: const Icon(Icons.email),
                     border: OutlineInputBorder(
                       borderSide: const BorderSide(width: 1),
                       borderRadius: BorderRadius.circular(10),
                     )),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    Get.snackbar('Email', 'Enter Email');
+                    return 'Enter email';
                   }
+                  return null;
                 },
                 onFieldSubmitted: (value) {
                   Utilities.fieldFocusChange(
@@ -56,26 +66,38 @@ class _SignInScreenState extends State<SignInScreen> {
                 },
               ),
               SizedBox(
-                height: mq.height * 0.015,
+                height: mq.height * 0.025,
               ),
-              TextFormField(
-                controller: signinScreenController.passwordController.value,
-                focusNode: signinScreenController.passwordFocusNode.value,
-                keyboardType: TextInputType.visiblePassword,
-                decoration: InputDecoration(
-                    hintText: 'Password',
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
-                    )),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    Get.snackbar('Password', 'Enter password');
-                  }
-                },
-              ),
+              Obx((){
+                return TextFormField(
+                  controller: signinScreenController.passwordController.value,
+                  focusNode: signinScreenController.passwordFocusNode.value,
+                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: !signinScreenController.isVisible.value,
+                  decoration: InputDecoration(
+                      hintText: 'Password',
+                      prefixIcon: const Icon(Icons.password),
+                      suffixIcon: signinScreenController.isVisible.value
+                          ? IconButton(
+                          onPressed: () {
+                            signinScreenController.changeVisibility();
+                          }, icon: const Icon(Icons.visibility,))
+                          : IconButton(
+                          onPressed: () {signinScreenController.changeVisibility();}, icon: const Icon(Icons.visibility_off,)),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(width: 1),
+                        borderRadius: BorderRadius.circular(10),
+                      )),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Enter password';
+                    }
+                    return null;
+                  },
+                );
+              }),
               SizedBox(
-                height: mq.height * 0.015,
+                height: mq.height * 0.025,
               ),
               Obx(
                     () => ReusuableButton(
@@ -90,6 +112,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         );
                       }
                     }),
+              ),
+              SizedBox(
+                height: mq.height * 0.025,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,

@@ -1,44 +1,76 @@
-
-
 import 'package:flutter/material.dart';
 
-class DialogBox{
-
-  Future<void> dialogShow(TextEditingController textController,TextEditingController amountController,String title,String amount,String text,void onTap(),BuildContext context) async {
+class DialogBox {
+  Future<void> dialogShow(
+      TextEditingController textController,
+      TextEditingController amountController,
+      String title,
+      String amount,
+      String text,
+      void Function() onTap,
+      BuildContext context,
+      ) async {
     textController.text = title;
     amountController.text = amount;
+
+    // Create a GlobalKey for the form
+    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
     await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Edit Expenditure'),
-          content: Container(
-            height: 150,
-            child: Column(
-              children: [
-                TextFormField(
-                  controller: textController,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    hintText: 'Enter Text',
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
+          content: SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.only(bottom: 20.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextFormField(
+                      controller: textController,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        hintText: 'Enter Text',
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter text';
+                        }
+                        return null;
+                      },
                     ),
-                  ),
-                ),
-                TextFormField(
-                  controller: amountController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: 'Enter amount',
-                    border: OutlineInputBorder(
-                      borderSide: const BorderSide(width: 1),
-                      borderRadius: BorderRadius.circular(10),
+                    SizedBox(height: 10),
+                    TextFormField(
+                      controller: amountController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        hintText: 'Enter amount',
+                        border: OutlineInputBorder(
+                          borderSide: const BorderSide(width: 1),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter an amount';
+                        }
+                        final n = num.tryParse(value);
+                        if (n == null) {
+                          return 'Please enter a valid number';
+                        }
+                        return null;
+                      },
                     ),
-                  ),
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           actions: [
@@ -52,11 +84,13 @@ class DialogBox{
                   child: const Text('Cancel'),
                 ),
                 TextButton(
-                  onPressed: () async {
-                    onTap();
-                    Navigator.pop(context);
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      onTap();
+                      Navigator.pop(context);
+                    }
                   },
-                  child:  Text(text),
+                  child: Text(text),
                 ),
               ],
             ),
@@ -65,5 +99,4 @@ class DialogBox{
       },
     );
   }
-
 }

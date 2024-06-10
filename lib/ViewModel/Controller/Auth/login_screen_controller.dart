@@ -9,4 +9,10 @@ class LoginScreenController extends GetxController{
   final passwordFocusNode = FocusNode().obs;
 
   RxBool loading = false.obs;
+
+  RxBool isVisible = false.obs;
+
+  changeVisibility(){
+    isVisible.value = ! isVisible.value;
+  }
 }

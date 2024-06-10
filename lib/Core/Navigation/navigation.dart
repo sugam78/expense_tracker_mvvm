@@ -12,4 +12,8 @@ class Navigation{
   void navigateToHomeScreenR(BuildContext context){
     Navigator.pushReplacementNamed(context, RouteName.home);
   }
+
+  void navigateToChartScreen(BuildContext context){
+    Navigator.pushNamed(context, RouteName.chart);
+  }
 }

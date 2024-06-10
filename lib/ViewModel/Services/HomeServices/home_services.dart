@@ -33,11 +33,20 @@ class HomeServices {
       'id': id,
     });
   }
+  Future<void> editIncome(String title,String amount,String id) async {
+    String path = ('${auth.currentUser!.email}Income');
+    await fireStore.collection(path).doc(id).update({
+      'title': title,
+      'amount': amount,
+      'id': id,
+    });
+  }
 
   Future<void> addIncome(String title,String amount) async {
     String path = ('${auth.currentUser!.email}Income');
     String id = DateTime.now().millisecondsSinceEpoch.toString();
     await fireStore.collection(path).doc(id).set({
+      'title': title,
       'amount': amount,
       'id': id,
     });
@@ -93,6 +102,11 @@ class HomeServices {
 
   Future<void> deleteExpenditure(String id)async{
     String path = ('${auth.currentUser!.email}Expenses');
+    await fireStore.collection(path).doc(id).delete();
+  }
+
+  Future<void> deleteIncome(String id)async{
+    String path = ('${auth.currentUser!.email}Income');
     await fireStore.collection(path).doc(id).delete();
   }
 

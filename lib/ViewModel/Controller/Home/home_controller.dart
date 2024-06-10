@@ -15,4 +15,9 @@ class HomeController extends GetxController{
   var totalExpenditure = 0.0.obs;
   var totalIncome = 0.0.obs;
 
+  RxBool showIncome = false.obs;
+
+  void toggleIncome(){
+    showIncome.value = !showIncome.value;
+  }
 }

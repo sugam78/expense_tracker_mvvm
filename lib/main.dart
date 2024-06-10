@@ -1,7 +1,11 @@
 import 'package:expense_tracker_mvvm/Core/Routes/routes.dart';
 import 'package:expense_tracker_mvvm/View/SplashScreen/splash_screen.dart';
+import 'package:expense_tracker_mvvm/ViewModel/Controller/Auth/login_screen_controller.dart';
+import 'package:expense_tracker_mvvm/ViewModel/Controller/Auth/signin_screen_controller.dart';
+import 'package:expense_tracker_mvvm/ViewModel/Controller/Home/home_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'Core/Routes/routes_name.dart';
 import 'Core/Theme/app_pallete.dart';
@@ -24,6 +28,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(HomeController());
+    Get.put(SigninScreenController());
+    Get.put(LoginScreenController());
     return MaterialApp(
       title: 'Expense Tracker',
       theme: ThemeData(
@@ -34,6 +41,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
+
       home: const SplashScreen(),
       initialRoute: RouteName.splash,
       onGenerateRoute: Routes.generateRoute,

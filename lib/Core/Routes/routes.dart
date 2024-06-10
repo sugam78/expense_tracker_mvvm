@@ -1,4 +1,5 @@
 import 'package:expense_tracker_mvvm/Core/Routes/routes_name.dart';
+import 'package:expense_tracker_mvvm/View/Home/chart_screen.dart';
 import 'package:expense_tracker_mvvm/View/Home/home_screen.dart';
 import 'package:expense_tracker_mvvm/View/SplashScreen/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,8 @@ class Routes{
         return MaterialPageRoute(builder: (context) => LoginScreen());
       case RouteName.signin:
         return MaterialPageRoute(builder: (context) => SignInScreen());
+      case RouteName.chart:
+        return MaterialPageRoute(builder: (context) => ChartScreen());
       case RouteName.home:
         return MaterialPageRoute(builder: (context) => HomeScreen());
       default:
