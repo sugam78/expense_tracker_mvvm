@@ -53,9 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       borderRadius: BorderRadius.circular(10),
                     )),
                 validator: (value) {
-                  debugPrint('Validator called\n' * 10);
                   if (value!.isEmpty) {
-                    Get.snackbar('Email', 'Enter Email');
                     return 'Enter email';
                   }
                   return null;
@@ -92,7 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       )),
                   validator: (value) {
                     if (value!.isEmpty) {
-                      Get.snackbar('Password', 'Enter password');
                       return 'Enter password';
                     }
                     return null;
@@ -105,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Obx(
                 () => ReusuableButton(
                     title: 'Login',
-                    loading: loginScreenController.loading.value,
+                    loading: LoginScreenController.loading.value,
                     onTap: () async {
                       if (formKey.currentState?.validate() ?? false) {
                         await loginRepo.loginWithEmail(

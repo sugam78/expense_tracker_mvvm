@@ -102,7 +102,7 @@ class _SignInScreenState extends State<SignInScreen> {
               Obx(
                     () => ReusuableButton(
                     title: 'Signin',
-                    loading: signinScreenController.loading.value,
+                    loading: SigninScreenController.loading.value,
                     onTap: () async{
                       if (formKey.currentState?.validate()?? false) {
                         await signinRepo.signinWithEmail(

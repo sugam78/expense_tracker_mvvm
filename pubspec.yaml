@@ -41,6 +41,7 @@ dependencies:
   firebase_core: ^2.31.1
   cloud_firestore: ^4.17.5
   pie_chart: ^5.4.0
+  fluttertoast: ^8.2.6
 
 
 dev_dependencies:

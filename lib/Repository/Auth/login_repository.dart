@@ -7,6 +7,5 @@ class LoginRepository{
   final _loginService = LoginServices();
   Future<void> loginWithEmail(String email,String password,BuildContext context)async{
     await _loginService.login(email, password,context);
-
   }
 }

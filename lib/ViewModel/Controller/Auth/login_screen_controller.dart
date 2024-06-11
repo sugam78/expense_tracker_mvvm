@@ -8,7 +8,7 @@ class LoginScreenController extends GetxController{
   final emailFocusNode = FocusNode().obs;
   final passwordFocusNode = FocusNode().obs;
 
-  RxBool loading = false.obs;
+  static RxBool loading = false.obs;
 
   RxBool isVisible = false.obs;
 
