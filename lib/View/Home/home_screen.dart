@@ -23,8 +23,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    homeRepo.fetchExpenses();
-    homeRepo.fetchIncome();
+    _initializeData();
+  }
+
+  Future<void> _initializeData() async {
+    await homeRepo.fetchExpenses();
+    await homeRepo.fetchIncome();
   }
 
   @override
@@ -43,7 +47,6 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
-
             Expanded(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +154,27 @@ class _HomeScreenState extends State<HomeScreen> {
               return homeController.showIncome.value? Expanded(
                 child: Obx(() {
                   if (homeController.income.isEmpty) {
-                    return const Center(child: Text('Add Income'));
+                    return Container(
+                      width: mq.width * 0.5,
+                      margin: EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            offset: Offset(4, 4),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        'Add Income',
+                        style: TextStyle(fontSize: 30),
+                      ),
+                    );
                   }
                   return ListView.builder(
                     itemCount: homeController.income.length,
@@ -198,7 +221,29 @@ class _HomeScreenState extends State<HomeScreen> {
               ): Expanded(
                 child: Obx(() {
                   if (homeController.expenses.isEmpty) {
-                    return const Center(child: Text('Add Expense'));
+                    return Container(
+                      width: mq.width * 0.5,
+                      margin: EdgeInsets.all(20.0),
+                      padding: EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(10.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black,
+                            offset: Offset(4, 4),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      alignment: Alignment.center,
+                      child: Center(
+                        child: Text(
+                          'Add Expenses',
+                          style: TextStyle(fontSize: 30),
+                        ),
+                      ),
+                    );
                   }
                   return ListView.builder(
                     itemCount: homeController.expenses.length,
