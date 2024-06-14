@@ -17,6 +17,9 @@ class ChartController {
     if(homeController.totalIncome.value - homeController.totalExpenditure.value < 0){
       return 'Income is Less than Expenditure';
     }
+    else if(homeController.totalIncome.value ==0 &&homeController.totalExpenditure.value == 0){
+      return 'No data';
+    }
     return data;
   }
 }

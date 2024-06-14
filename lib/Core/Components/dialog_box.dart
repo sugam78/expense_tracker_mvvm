@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class DialogBox {
   Future<void> dialogShow(
+      String header,
       TextEditingController textController,
       TextEditingController amountController,
       String title,
@@ -20,7 +21,7 @@ class DialogBox {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Edit Expenditure'),
+          title: Text(header),
           content: SingleChildScrollView(
             child: Container(
               padding: EdgeInsets.only(bottom: 20.0),

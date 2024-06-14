@@ -70,6 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               title: 'Add Expense',
                               onTap: () {
                                 dialogBox.dialogShow(
+                                  'Add expenditure',
                                   homeController.expenseTitleController.value,
                                   homeController.expenseController.value,
                                   '',
@@ -116,6 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   title: 'Add Income',
                                   onTap: () {
                                     dialogBox.dialogShow(
+                                      'Add Income',
                                       homeController.incomeTitleController.value,
                                       homeController.incomeController.value,
                                       '',
@@ -143,12 +145,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            TextButton(onPressed: (){
-              homeController.toggleIncome();
-            }, child: Obx((){
-             return homeController.showIncome.value? const Text('Show Expenditure'): const Text('Show Income');
-            }
-            )),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(onPressed: (){
+                homeController.toggleIncome();
+              }, child: Obx((){
+                return homeController.showIncome.value? const Text('Show Expenditure'): const Text('Show Income');
+              }
+              )),
+            ),
 
             Obx((){
               return homeController.showIncome.value? Expanded(
@@ -156,12 +161,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (homeController.income.isEmpty) {
                     return Container(
                       width: mq.width * 0.5,
-                      margin: EdgeInsets.all(20.0),
-                      padding: EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black,
                             offset: Offset(4, 4),
@@ -170,9 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                         ],
                       ),
                       alignment: Alignment.center,
-                      child: Text(
-                        'Add Income',
-                        style: TextStyle(fontSize: 30),
+                      child: Center(
+                        child: Text(
+                          'No Income To Show. Please Add Income',
+                          style: TextStyle(fontSize: mq.height * 0.03),
+                        ),
                       ),
                     );
                   }
@@ -189,6 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             IconButton(
                               onPressed: () {
                                 dialogBox.dialogShow(
+                                  'Edit Income',
                                   homeController.incomeTitleController.value,
                                   homeController.incomeController.value,
                                   item['title'],
@@ -223,12 +231,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (homeController.expenses.isEmpty) {
                     return Container(
                       width: mq.width * 0.5,
-                      margin: EdgeInsets.all(20.0),
-                      padding: EdgeInsets.all(10.0),
+                      margin: const EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(10.0),
                       decoration: BoxDecoration(
                         color: Colors.blue,
                         borderRadius: BorderRadius.circular(10.0),
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             color: Colors.black,
                             offset: Offset(4, 4),
@@ -239,8 +247,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.center,
                       child: Center(
                         child: Text(
-                          'Add Expenses',
-                          style: TextStyle(fontSize: 30),
+                          'No Expenses To Show. Please Add expenses',
+                          style: TextStyle(fontSize: mq.height * 0.03),
                         ),
                       ),
                     );
@@ -258,6 +266,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             IconButton(
                               onPressed: () {
                                 dialogBox.dialogShow(
+                                  'Edit Expense',
                                   homeController.expenseTitleController.value,
                                   homeController.expenseController.value,
                                   item['title'],
